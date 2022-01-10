@@ -1,7 +1,6 @@
 ---
 sidebar: false
-layout: HomeLayout
+layout: CommonLayout
 ---
-# Blog
 
-<kn-map />
+<home-content />

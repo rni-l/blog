@@ -10,13 +10,14 @@ import type { DefaultThemeOptions } from 'vuepress'
 import { generatePathTree, generateVuepressChildren } from './utils'
 import { join, resolve } from 'path'
 
-const articlePaths = generatePathTree(join(__dirname, '../record/article'), '/record/article')
-const notePaths = generatePathTree(join(__dirname, '../record/note'), '/record/note')
+const articlePaths = generatePathTree(join(__dirname, '../article'), '/article')
+const notePaths = generatePathTree(join(__dirname, '../note'), '/note')
+const lifePaths = generatePathTree(join(__dirname, '../life'), '/life')
 
 export default defineUserConfig<DefaultThemeOptions>({
   // 站点配置
   lang: 'zh-cn',
-  title: 'Blog',
+  title: '记录工作和生活',
   description: '记录',
 
   plugins: [
@@ -32,56 +33,38 @@ export default defineUserConfig<DefaultThemeOptions>({
     ],
   ],
 
-  // 主题和它的配置
-  // theme: '@vuepress/theme-default',
   theme: resolve(__dirname, './theme.ts'),
   themeConfig: {
     logo: './avatar.png',
+    lastUpdated: true,
+    contributors: false,
     navbar: [
       // NavbarItem
       {
-        text: '首页',
+        text: '主页',
         link: '/',
       },
       // NavbarGroup
       {
-        text: '记录',
-        link: '/record',
-        children: [
-          {
-            text: '文章',
-            link: '/record/article'
-          },
-          {
-            text: '笔记',
-            link: '/record/note'
-          }
-        ]
+        text: '技术',
+        link: '/article'
+      },
+      {
+        text: '笔记',
+        link: '/note'
+      },{
+        text: '生活',
+        link: '/life'
       },
       {
         text: '关于我',
         link: '/about',
       },
     ],
-    sidebar: [
-      // SidebarItem
-      {
-        text: '记录',
-        link: '/record',
-        children: [
-          // SidebarItem
-          {
-            text: '文章',
-            link: '/record/article',
-            children: generateVuepressChildren(articlePaths),
-          },
-          {
-            text: '笔记',
-            link: '/record/note',
-            children: generateVuepressChildren(notePaths),
-          },
-        ],
-      },
-    ],
+    sidebar: {
+      '/article': generateVuepressChildren(articlePaths),
+      '/note': generateVuepressChildren(notePaths),
+      '/life': generateVuepressChildren(lifePaths),
+    }
   },
 })

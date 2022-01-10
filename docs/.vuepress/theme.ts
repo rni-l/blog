@@ -15,7 +15,7 @@ const fooTheme: ThemeObject = {
   extends: '@vuepress/theme-default',
   // 覆盖父主题的布局
   layouts: {
-    HomeLayout: path.resolve(__dirname, '../components/HomeLayout.vue'),
+    CommonLayout: path.resolve(__dirname, '../components/CommonLayout.vue'),
   },
 }
 

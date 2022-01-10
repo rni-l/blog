@@ -1327,6 +1327,17 @@
     "@vuepress/utils" "2.0.0-beta.32"
     vue "^3.2.24"
 
+"@vuepress/plugin-toc@^2.0.0-beta.32":
+  version "2.0.0-beta.32"
+  resolved "https://registry.npmjs.org/@vuepress/plugin-toc/-/plugin-toc-2.0.0-beta.32.tgz#1135cf0211b208229fd56c427fa1c68aa1b08617"
+  integrity sha512-/RmnS0/ErCk+ECMFqiwfXEYe1s/fPdjRW6eFN4VK10iHnHcJGVVyewuTeX68hpVy0z0TxaxoBwj0wXFhDJd1Fw==
+  dependencies:
+    "@vuepress/client" "2.0.0-beta.32"
+    "@vuepress/core" "2.0.0-beta.32"
+    "@vuepress/utils" "2.0.0-beta.32"
+    vue "^3.2.24"
+    vue-router "^4.0.12"
+
 "@vuepress/shared@2.0.0-beta.32":
   version "2.0.0-beta.32"
   resolved "https://registry.npmjs.org/@vuepress/shared/-/shared-2.0.0-beta.32.tgz#8ac1dca241b124e083c06acbc61fe322eb4f0ee7"
