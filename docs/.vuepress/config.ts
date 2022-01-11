@@ -5,10 +5,11 @@
  * @LastEditors: Lu
  * @Description: 
  */
-import { defineUserConfig } from 'vuepress'
+import { defineUserConfig, HeadConfig } from 'vuepress'
 import type { DefaultThemeOptions } from 'vuepress'
 import { generatePathTree, generateVuepressChildren } from './utils'
 import { join, resolve } from 'path'
+import { baidu } from '../../local.config'
 
 const articlePaths = generatePathTree(join(__dirname, '../article'), '/article')
 const notePaths = generatePathTree(join(__dirname, '../note'), '/note')
@@ -32,6 +33,10 @@ export default defineUserConfig<DefaultThemeOptions>({
       },
     ],
   ],
+
+  head: [
+    baidu?.()
+  ].filter(v => v) as HeadConfig[],
 
   theme: resolve(__dirname, './theme.ts'),
   themeConfig: {

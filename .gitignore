@@ -3,3 +3,4 @@ node_modules
 .cache
 upload.sh
 docs/.vuepress/dist
+local.config.ts
