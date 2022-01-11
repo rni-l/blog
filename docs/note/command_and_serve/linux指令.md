@@ -51,20 +51,24 @@ draft: true
                 tail -100f test.log      实时监控100行日志
                 tail  -n  10  test.log   查询日志尾部最后10行的日志;
 
-                tail -n +10 test.log    查询10行之后的所有日志;
-
+      ```shell
+      tail -n +10 test.log    查询10行之后的所有日志;
+      ```
+      
   * head:  
-
-            跟tail是相反的，tail是看后多少行日志；例子如下：
-            
-                head -n 10  test.log   查询日志文件中的头10行日志;
-            
-                head -n -10  test.log   查询日志文件除了最后10行的其他所有日志;
+  
+       ```shell
+       跟tail是相反的，tail是看后多少行日志；例子如下：
+       
+           head -n 10  test.log   查询日志文件中的头10行日志;
+       
+           head -n -10  test.log   查询日志文件除了最后10行的其他所有日志;
+       ```
 
   * cat： 
-
+  
     tac是倒序查看，是cat单词反写；例子如下：
-
+  
      cat -n test.log |grep "debug"   查询关键字的日志
 
 查看进程
@@ -77,7 +81,7 @@ draft: true
 
 ### 查看内存
 
-```
+```shell
 free -m // 查看内存信息
 df -h // 查看硬盘信息
 top // 查看内存使用情况
@@ -146,7 +150,7 @@ z    Flags   任务标志，参考 sched.h
 
 ### 修改防火墙端口
 
-```
+```shell
 vi /etc/sysconfig/iptables
 service iptables restart
 ```
@@ -296,12 +300,14 @@ add '199.232.68.133 raw.githubusercontent.com' to /etc/hosts
 
 添加以下内容：
 
-    [mongodb-org-3.4]  
-    name=MongoDB Repository  
-    baseurl=https://repo.mongodb.org/yum/redhat/$releasever/mongodb-org/3.4/x86_64/  
-    gpgcheck=1  
-    enabled=1  
-    gpgkey=https://www.mongodb.org/static/pgp/server-3.4.asc  
+```shell
+[mongodb-org-3.4]  
+name=MongoDB Repository  
+baseurl=https://repo.mongodb.org/yum/redhat/$releasever/mongodb-org/3.4/x86_64/  
+gpgcheck=1  
+enabled=1  
+gpgkey=https://www.mongodb.org/static/pgp/server-3.4.asc  
+```
 
 开始安装`mongodb`：`yum -y install mongodb-org`
 
@@ -324,20 +330,22 @@ add '199.232.68.133 raw.githubusercontent.com' to /etc/hosts
 阿里云配置`DNS`
 
 
-    server {
-      listen 80;
-      server_name canvas-Image-processing.rni-l.com;
-    
-      charset utf-8;
-    
-      location / {
-        proxy_pass  http://localhost:6363/;
-    
-        proxy_set_header  Host  $host;
-        proxy_set_header  X-Real-IP  $remote_addr;
-        proxy_set_header  X-Forwarded-For  $proxy_add_x_forwarded_for;
-      }
-    }
+```shell
+server {
+  listen 80;
+  server_name canvas-Image-processing.rni-l.com;
+
+  charset utf-8;
+
+  location / {
+    proxy_pass  http://localhost:6363/;
+
+    proxy_set_header  Host  $host;
+    proxy_set_header  X-Real-IP  $remote_addr;
+    proxy_set_header  X-Forwarded-For  $proxy_add_x_forwarded_for;
+  }
+}
+```
 
 pkill php-fpm: 关闭php-fpm
 https://repo.mongodb.org/yum/redhat/$releasever/mongodb-org/3.4/x86_64/

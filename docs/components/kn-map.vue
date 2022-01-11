@@ -7,40 +7,51 @@
 -->
 <template>
   <div class="kn-map">
-    <mindmap
+    <!-- <mindmap
       class="kn-map-container"
       v-model="data"
       @click="handleClick"
       :drag="true"
       :zoom="true"
-    ></mindmap>
+    ></mindmap> -->
+    <el-tree
+      :data="data"
+      :props="defaultProps"
+      :default-expand-all="true"
+      @node-click="handleNodeClick" />
   </div>
 </template>
 
-<script>
-import mindmap from 'vue3-mindmap'
-import 'vue3-mindmap/dist/style.css'
+<script lang="ts">
+// import mindmap from 'vue3-mindmap'
+// import 'vue3-mindmap/dist/style.css'
+import { defineComponent } from 'vue'
+import { useRouter } from 'vue-router'
+import { ElTree } from 'element-plus'
+import 'element-plus/dist/index.css'
 import { getMap, findLinkByName, maps } from './config'
 
-export default {
-  components: { mindmap },
-  name: 'kn-map',
-  data: () => ({
-    data: getMap()
-  }),
+export default defineComponent({
+  components: { ElTree },
 
-  methods: {
-    handleClick(e, node) {
-      if (e && e.target && e.target.__data__) {
-        const name = e.target.__data__.name
-        console.log(name);
-        const link = findLinkByName(name, maps)
-        console.log(link);
-        if (link) this.$router.push(link)
-      }
+  name: 'kn-map',
+  
+  setup() {
+    const router = useRouter()
+    const handleNodeClick = ({ link }) => {
+      if (link) router.push(link)
+    }
+    const defaultProps = {
+      children: 'children',
+      label: 'name',
+    }
+    return {
+      handleNodeClick,
+      defaultProps,
+      data: getMap()
     }
   }
-}
+})
 </script>
 
 <style scoped>

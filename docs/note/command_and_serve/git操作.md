@@ -30,9 +30,9 @@ draft: true
 * 新建标签： git tag -a v1.0 -m '...'
 * 推送标签： git push origin v1.0
 * 删除标签： git tag -d v1.0
-* 删除远程标签：git push origin --delete tag <branchName> 
-* 拉取标签： git checkout  -b <branch_name> <tag_name>
-* 获取上游标签：git fetch upstream tag <tag_name>
+* 删除远程标签：git push origin --delete tag `<branchName>`
+* 拉取标签： git checkout  -b `<branch_name>` `<tag_name>`
+* 获取上游标签：git fetch upstream tag `<tag_name>`
 * 将相关的分支也推送到仓库上：git push --follow-tags origin master
 
 ## 合并/分支
@@ -41,7 +41,7 @@ draft: true
 * 生成并切换分支： git checkout -b dev
 * 删除分支： git branch -d dev
 * 合并分支： git merge dev (dev 分支 commit 后，切换别的分支，再合并)
-* 删除远程分支：git push origin --delete <branchName> 
+* 删除远程分支：git push origin --delete `<branchName> `
 * 分支重命名：git branch -m old new
 
 ## 日志

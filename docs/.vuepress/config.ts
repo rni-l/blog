@@ -39,12 +39,10 @@ export default defineUserConfig<DefaultThemeOptions>({
     lastUpdated: true,
     contributors: false,
     navbar: [
-      // NavbarItem
       {
         text: '主页',
         link: '/',
       },
-      // NavbarGroup
       {
         text: '技术',
         link: '/article'
