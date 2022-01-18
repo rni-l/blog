@@ -195,7 +195,8 @@ export const getMap = (): MapType[] => [{
               name: "Monorepo",
               children: [
                 { name: "Lerna", link: "/note/frontend/lerna.html" },
-                { name: "多个独立包模式", link: "/note/frontend/lerna.html" }
+                { name: "多个独立包模式", link: "/note/frontend/lerna.html" },
+                { name: "Lerna vs Turborepor vs Nx", link: "/note/frontend/lerna.html" }
               ]
             },
             { name: "项目工程化设计" },

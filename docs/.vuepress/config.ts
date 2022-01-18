@@ -22,16 +22,18 @@ export default defineUserConfig<DefaultThemeOptions>({
   description: '记录',
 
   plugins: [
-    [
-      '@vuepress/plugin-search',
-      {
-        locales: {
-          '/': {
-            placeholder: '搜索',
-          },
-        },
-      },
-    ],
+    // [
+    //   '@vuepress/docsearch',
+    //   {
+    //     apiKey: '<API_KEY>',
+    //     indexName: '<INDEX_NAME>',
+    //     locales: {
+    //       '/': {
+    //         placeholder: '搜索文档',
+    //       },
+    //     },
+    //   },
+    // ],
   ],
 
   head: [

@@ -274,7 +274,7 @@ yum install nginx
 
 ### 安装nvm
 
-`curl https://raw.githubusercontent.com/creationix/nvm/v0.30.2/install.sh | bash`
+`curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.39.1/install.sh | bash`
 
 查看所有`node`版本：`nvm ls-remote node `
 

@@ -21,11 +21,9 @@ export const generatePathTree = (targetRootPath: string, relativePath: string = 
   // const modules = import.meta.globEager(join(targetRootPath, '**/*.md'))
   // console.log(modules);
   const res = readdirSync(targetRootPath, { encoding: 'utf-8' })
-  console.log(res);
   return res.reduce((acc: GeneratePathTree[], v) => {
     const curPath = `${targetRootPath}/${v}`
     const curRelativePath = `${relativePath}/${v}`
-    console.log(curPath)
     // 判断是否文件夹
     const statVal = statSync(curPath)
     if (statVal.isDirectory()) {
