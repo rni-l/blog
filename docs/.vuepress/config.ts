@@ -9,7 +9,7 @@ import { defineUserConfig, HeadConfig } from 'vuepress'
 import type { DefaultThemeOptions } from 'vuepress'
 import { generatePathTree, generateVuepressChildren } from './utils'
 import { join, resolve } from 'path'
-import { baidu } from '../../local.config'
+import { baidu, search } from '../../local.config'
 
 const articlePaths = generatePathTree(join(__dirname, '../article'), '/article')
 const notePaths = generatePathTree(join(__dirname, '../note'), '/note')
@@ -22,18 +22,17 @@ export default defineUserConfig<DefaultThemeOptions>({
   description: '记录',
 
   plugins: [
-    // [
-    //   '@vuepress/docsearch',
-    //   {
-    //     apiKey: '<API_KEY>',
-    //     indexName: '<INDEX_NAME>',
-    //     locales: {
-    //       '/': {
-    //         placeholder: '搜索文档',
-    //       },
-    //     },
-    //   },
-    // ],
+    [
+      '@vuepress/docsearch',
+      {
+        ...search(),
+        locals: {
+          '/': {
+            placeholder: '搜索文档',
+          }
+        }
+      },
+    ],
   ],
 
   head: [

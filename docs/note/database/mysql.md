@@ -524,33 +524,48 @@ mysql -u root -p {dbname} < /Users/apple/D/document/test2.sql
 
 [解决教程](https://mathiasbynens.be/notes/mysql-utf8mb4#utf8-to-utf8mb4)
 
+
+
+### 树形结构存储方式
+
+一般比较普遍的就是四种方法：（具体见 SQL Anti-patterns这本书）
+
+1. Adjacency List：每一条记录存parent_id
+2. Path Enumerations：每一条记录存整个tree path经过的node枚举
+3. Nested Sets：每一条记录存 nleft 和 nright
+4. Closure Table：维护一个表，所有的tree path作为记录进行保存。
+
+![](/Users/apple/D/core/blog/docs/.vuepress/public/mysql/tree-perf.jpg)
+
+参考资料：https://www.zhihu.com/question/20417447
+
 ## 优化总结
 
-1. 使用如果是查询某条数据，使用 limit 1。这样到数据库找到某条数据后就回停止查询，不再继续查。
+### 使用如果是查询某条数据，使用 limit 1。这样到数据库找到某条数据后就回停止查询，不再继续查。
 
-   ```mysql
-   mysql> select * from t2 where h ="name50000";
-   +-----------+------+
-   | h         | c    |
-   +-----------+------+
-   | name50000 | NULL |
-   +-----------+------+
-   1 row in set (0.04 sec)
-   
-   mysql> select * from t2 where h ="name50000" limit 1;
-   +-----------+------+
-   | h         | c    |
-   +-----------+------+
-   | name50000 | NULL |
-   +-----------+------+
-   1 row in set (0.02 sec)
-   
-   10 万行数据，中间的数据加了 limit 1，快了一倍的速度
-   ```
+```mysql
+mysql> select * from t2 where h ="name50000";
++-----------+------+
+| h         | c    |
++-----------+------+
+| name50000 | NULL |
++-----------+------+
+1 row in set (0.04 sec)
 
-   
+mysql> select * from t2 where h ="name50000" limit 1;
++-----------+------+
+| h         | c    |
++-----------+------+
+| name50000 | NULL |
++-----------+------+
+1 row in set (0.02 sec)
 
-2. char 用于定长，varchar 用于可变长，这样效率会更好
+10 万行数据，中间的数据加了 limit 1，快了一倍的速度
+```
+
+
+
+### char 用于定长，varchar 用于可变长，这样效率会更好
 
 
 
