@@ -20,8 +20,6 @@ categories: ["记录"]
 3. 可以搭建属于自己的组织或私有源，去管控发布的包
 4. 可以通过 `npx` 命令快速执行包的脚本
 
-
-
 ### 源、权限、作用域
 
 `Npm` 有有不同的源、不同的权限和不同的作用域。
@@ -72,21 +70,15 @@ nrm add <registry> <url> [home]          # Add one custom registry
 2. 检查当前系统用户的 .npmrc 文件（用户配置位置）
 3. 检查全局的 .npmc 文件（就是 npm 安装的位置）
 
-
-
 ### 权限
 
  包有分公有、私有，在 `package.json` 的配置有一个属性：`private: boolean` 配置，声明该包是公有还是私有。
-
-
 
 ### 作用域
 
 我们可以看到很多的包都有一个前缀，例如：`vue/cli-service`，`vue/babel` 之类的，如果去 `node_modules` 看的话，可以看到都会有一个文件包裹相同前缀的包。比如 `vue` 这里的两个包，就会有一个 `vue` 文件夹，里面有 `cli-service` 和 `babel` 这两个包。
 
 作用域的效果相当于一个命名空间，使你的包更方便管理。
-
-
 
 ## package.json 属性详解
 
@@ -102,8 +94,6 @@ nrm add <registry> <url> [home]          # Add one custom registry
 
 简单来讲：
 
-
-
 ## package-lock.json 属性详解
 
 ## Npm 包发布流程
@@ -116,14 +106,9 @@ nrm add <registry> <url> [home]          # Add one custom registry
 
 ## 常见问题
 
-
-
-
-
 ## 参考资料
 
 1. [npm 官方文档](https://docs.npmjs.com/)
 2. [CornardLi 的 blog - npm 的包管理机制](http://www.conardli.top/blog/article/%E5%89%8D%E7%AB%AF%E5%B7%A5%E7%A8%8B%E5%8C%96/%E5%89%8D%E7%AB%AF%E5%B7%A5%E7%A8%8B%E5%8C%96-%E5%89%96%E6%9E%90npm%E7%9A%84%E5%8C%85%E7%AE%A1%E7%90%86%E6%9C%BA%E5%88%B6%EF%BC%88%E5%AE%8C%E6%95%B4%E7%89%88%EF%BC%89.html#%E5%AF%BC%E8%AF%BB)
 3. [nrm](https://www.npmjs.com/package/nrm)
 4. [yrm](https://www.npmjs.com/package/yrm)
-

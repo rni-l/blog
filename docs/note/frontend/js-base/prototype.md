@@ -84,18 +84,12 @@ function mockNew(func, ...args) {
 
 ```
 
-
-
-
-
 ### 原型的特征
 
 1. 原型之间会通过 `__proto__` 进行链接，这个就是原型链
 2. 原型链之间的方法和属性是共用的
 3. 原型中的 `constructor` 指向的是当前原型的构造函数
-4. 查找一个对象的属性，会先从实例自身查找，再一步步沿着 `prototype` 去找，找不到就返回 `undefined` 
-
-
+4. 查找一个对象的属性，会先从实例自身查找，再一步步沿着 `prototype` 去找，找不到就返回 `undefined`
 
 ### __proto__，prototype，constructor 之间的关系
 
@@ -114,10 +108,6 @@ Object.prototype.__proto__ === null
 ```
 
 [结构图](https://www.processon.com/diagraming/5c1df7dde4b0e83682eb7712)
-
-
-
-
 
 ### 创建抽象的对象
 
@@ -251,8 +241,6 @@ cat.getName()
 
 但是上面一共调用了两次 `Animal` ，会在实例和原型上都创建了构造函数的属性，这样会造成不必要的消耗。
 
-
-
 #### 原型式继承
 
 ```javascript
@@ -347,8 +335,6 @@ console.log(a)
 
 红皮书说这种是实现继承的最优方法。首先父类的属性还是使用构造函数的方法和继承。而原型的方法，先用父类的 `prototype` 生成一个实例，再将子类的 `prototype` 指向这个实例。
 
-
-
 ## 原型 / 构造函数 的验证方法
 
 ### 验证实例的构造函数
@@ -390,23 +376,19 @@ console.log(cat.hasOwnProperty('b')) // false
 
 `hasOwnProperty` 方法可以判断该属性是否存在自身属性上
 
-
-
 ## 回答
 
 > 面试经典题。。。尝试通过自己的口述，把问题表达清晰明白
 
-###什么是原型
+### 什么是原型
 
 每个实例对象，都有一个属性（__proto__) 指向实例的原型对象（prototype），而 prototype 也有自己的原型对象，__proto__ 指向它的原型对象，直到 Object 为止。而 Object 的原型对象指向的是 null。
 
 原型对象之间的连接，构成原型链
 
+### instanceof
 
-
-### instanceof 
-
-**`instanceof`** **运算符**用于检测构造函数的 `prototype` 属性是否出现在某个实例对象的原型链上
+**`instanceof`** __运算符__用于检测构造函数的 `prototype` 属性是否出现在某个实例对象的原型链上
 
 ```javascript
 function test() {}
@@ -428,11 +410,11 @@ function new_instance_of(leftVaule, rightVaule) {
     let rightProto = rightVaule.prototype; // 取右表达式的 prototype 值
     leftVaule = leftVaule.__proto__; // 取左表达式的__proto__值
     while (true) {
-    	if (leftVaule === null) {
-            return false;	
+     if (leftVaule === null) {
+            return false; 
         }
         if (leftVaule === rightProto) {
-            return true;	
+            return true; 
         } 
         leftVaule = leftVaule.__proto__ 
     }
@@ -441,11 +423,9 @@ function new_instance_of(leftVaule, rightVaule) {
 
 具体原理，就是沿着左边对象的 \_\_proto\_\_ 属性，向上一层层寻找，知道找到与右边对象的 prototype 值一样的
 
-
-
 ### 如何实现继承？
 
-js 实现继承，都是要通过 **构造函数** 或 **原型** 从而实现继承的。常见的继承像：组合继承、原型式继承、寄生继承、寄生组合式继承。
+js 实现继承，都是要通过 __构造函数__ 或 __原型__ 从而实现继承的。常见的继承像：组合继承、原型式继承、寄生继承、寄生组合式继承。
 
 组合继承的话，通过使用  `call` 或 `apply` 方法，去获取父类的属性，再把子类的 `prototype` 连到父类的实例上，因为 `prototype` 的属性是共享的，这样就不用每次生成实例都要创建一次属性或方法，直接继承了父类原型上的属性。但使用组合继承会调用了父类，会调用父类两次，造成不必要的消耗。
 
@@ -481,4 +461,5 @@ Es6 的 Class 只不过是基于原型的语法糖
 
 1. 它还是通过 prototype 去实现而已，当修改父类的某个方法时，子类还是会收到影响
 2. 无法定义原型上的属性，语法只支持定义方法。如果要定义原型上的属性，只能显式地在 prototype 上添加
-3. 
+
+3.

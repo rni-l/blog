@@ -6,11 +6,11 @@ categories: ["记录"]
 ---
 # TypeScript 使用
 
->   记录一些主要概念，方便查看
+> 记录一些主要概念，方便查看
 
 ## 什么是 typeScript
 
-*   TypeScript的核心原则之一是对值所具有的*结构*进行类型检查
+* TypeScript的核心原则之一是对值所具有的*结构*进行类型检查
 
 ## 语法
 
@@ -50,14 +50,12 @@ let strLength: number = (<string>someValue).length
 let strLength: number = (someValue as string).length
 ```
 
-
-
 ### 接口
 
 > 在TypeScript里，接口的作用就是为这些类型命名和为你的代码或第三方代码定义契约。
 
-*   用来描述 Object、函数、类等多种的类型
-*   简单来讲，就是用来描述一种结构的语法
+* 用来描述 Object、函数、类等多种的类型
+* 简单来讲，就是用来描述一种结构的语法
 
 #### 对象类型
 
@@ -180,7 +178,7 @@ let greeter = new Greeter("world")
 
 #### 公共，私有与受保护的修饰符
 
-public / private / protected 
+public / private / protected
 
 默认使用 `public` 修饰符
 
@@ -239,7 +237,7 @@ console.log(Animal.a)
 
 #### 抽象类
 
->   抽象类做为其它派生类的基类使用。 它们一般不会直接被实例化。 不同于接口，抽象类可以包含成员的实现细节。 `abstract`关键字是用于定义抽象类和在抽象类内部定义抽象方法
+> 抽象类做为其它派生类的基类使用。 它们一般不会直接被实例化。 不同于接口，抽象类可以包含成员的实现细节。 `abstract`关键字是用于定义抽象类和在抽象类内部定义抽象方法
 
 抽象类，是无法实例化的。
 
@@ -554,13 +552,7 @@ let sq = new polygons.Square(); // Same as "new Shapes.Polygons.Square()"
 
 1. 命名空间位于全局的命名空间下的对象，模块与命名空间一样，可以包含代码和声明，但是模块可以声明它的依赖
 
-
-
 ### 项目配置文件
-
-
-
-
 
 ## 优劣
 
@@ -582,8 +574,6 @@ let sq = new polygons.Square(); // Same as "new Shapes.Polygons.Square()"
 
 1. 学习成本更高
 2. 开发时间可能会相对慢点，需要写大量的注释（静态类型、类说明、接口）
-
-
 
 ## Vue 项目改造 TypeScript 后的总结
 
@@ -675,8 +665,6 @@ async getData() {
 
 `jsx` 和 `render` 模式还没尝试过
 
-
-
 ## 遇到的问题和总结点
 
 1. 用好泛型，像封装接口的时候，每个接口返回的  `response` 可能都不一样，这时候利用泛型，就可以解决问题
@@ -750,4 +738,3 @@ console.log((a as string).substring(0))
 12. 减少使用 `export default` ，[链接](https://jkchao.github.io/typescript-book-chinese/tips/avoidExportDefault.html)
 
 13. 比如添加修改的接口，它们的接口定义都是类似的，只不过添加没有 id，这个要怎么重用？
-

@@ -16,11 +16,7 @@ categories: ["记录"]
 * [arraybuffer 文章](https://blog.techbridge.cc/2017/09/24/binary-data-manipulations-in-javascript/)
 * [blob, arraybuffer, buffer 讲解](https://zhuanlan.zhihu.com/p/97768916)
 
-
-
 ![](http://md.rni-l.com/md/js-binarydata.png)
-
-
 
 ## 遇到的实际场景
 
@@ -54,8 +50,6 @@ function download() {
 
 `readAsArrayDataURL`: blob -> url
 
-
-
 ### 接口获取到的 arraybuffer 转成 blob
 
 使用 `Blob` 构造函数，传入即可
@@ -76,8 +70,6 @@ xhr.responseType = 'arraybuffer';
 xhr.open('GET', remoteUrl);
 xhr.send();
 ```
-
-
 
 ### base64/字符串 转 blob
 
@@ -105,15 +97,10 @@ function base64ToBlob(code) {
 }
 ```
 
-
-
 ## Blob
 
 `blob` 是由 `Blob` 构造函数生成的，通过传入的参数数组值排列组成的内容。我的理解，`blob` 是一个二进制数据处理对象，不同的数据类型：`ArrayBuffer`、`ArrayBufferView`、`USVString` 等等对象，传入生成的 `blbo`，再利用 `FileReader` 生成需要的数据格式。
 
-
-
 ## Buffer
 
 ## Base64(text)
-

@@ -18,7 +18,7 @@ const lifePaths = generatePathTree(join(__dirname, '../life'), '/life')
 export default defineUserConfig<DefaultThemeOptions>({
   // 站点配置
   lang: 'zh-cn',
-  title: '记录工作和生活',
+  title: '个人记录...',
   description: '记录',
 
   plugins: [

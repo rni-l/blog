@@ -21,11 +21,13 @@ categories: ["记录"]
 
 #### 使用本地文件
 
-
+详细看 [Electron 跨域问题处理](/note/frontend/electron/跨域问题.html)
 
 
 
 ### Cookie 处理
+
+同上。
 
 
 
@@ -33,7 +35,16 @@ categories: ["记录"]
 
 > 是否需要将主进程的请求和渲染进程的请求使用同一个模块？
 
+在进行 Http 请求时，可以有两种方式，一种是用主进程的 `net.request` 模块进行请求，另一种是用渲染进程的 `XMLHttpRequest` 对象，也就是 `Ajax`。
 
+这里说下两种的方式的区别：
+
+* `net.request`
+  * 相当于后端发起一个 HTTP 请求，没有浏览器的限制，比如没有跨域限制，可以获取响应返回的 `Set-Cookie`
+  * 需要自己处理上传的数据封装，比如 `Form-Data` 要处理文件内容，设置 `multiple/orm-Data` 的 `boundary`
+  * 需要自己手动处理请求结果，比如 `buffer` -> `string` 或 `buffer` -> `json` 等
+* `XMLHttpRequest`
+  * 不能操作 `cookie`
 
 
 
@@ -102,4 +113,9 @@ categories: ["记录"]
 ### 如何定位性能问题
 
 
+
+## 参考资料
+
+* [MDN - multiple/form-data 说明](https://developer.mozilla.org/en-US/docs/Web/HTTP/Methods/POST)
+* [为什么需要设置 boundary](https://stackoverflow.com/questions/3508338/what-is-the-boundary-in-multipart-form-data)
 
