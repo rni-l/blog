@@ -1,23 +1,202 @@
 ---
-title: vue 2.x 源码阅读总结
+title: vue@2问题汇总
 date: 2020-01-10
 tags: ["js", "vue"]
 categories: ["记录"]
 draft: true
 ---
 
-## 参考文章
 
-1. [muwoo](https://github.com/muwoo/blogs)
-2. [染陌](https://github.com/answershuto/learnVue)
+## 常问问题
+
+### Vue 原理
+
+参考：
+
+1. [Vue 的双向绑定讨论](https://github.com/Advanced-Frontend/Daily-Interview-Question/issues/34)
+
+2. 我个人理解，Vue 的核心是基于 `defineProperty` 和发布订阅模式的组合，实现 MVVM 模式的。当 Vue 初始化 `data` 属性时，通过 `defineProperty` 的 `get`、`set` 拦截器拦截每一个属性。当有使用某个属性时，会收集关于该依赖；当该属性要被修改时，会触发 `set` 拦截器，修改值并通知收集的依赖，通知执行相关回调操作。这时候就会对相关的 DOM 进行更新。
+
+#### 这个所谓的依赖指的是什么？
+
+首先我们要理清哪个是发布者哪个是订阅者
+
+在使用 `defineProerty` 配置属性的时候，里面的 `set` 拦截器相当于发布者，它通过一个 `Dep` 的类，去管理订阅者，而订阅者就是 `Watcher`。我们在目标上使用了某个属性时，就会开始收集依赖。这时候会触发属性的 `get` 拦截器，让当前的 `Watcher` 缓存当前属性的 `Dep`，并让 `Dep` 收集依赖 `Watcher`。
+
+在源码里，这个依赖就是 `Watcher` 类，它相当于 MVVM 模式中的 `VM`，是用于视图和控制层之间通信的。
+
+该属性收集到依赖，就是为了后面更新的时候使用。当我们修改属性时的时候，就会触发 `set` 拦截器，让当前属性的 `Dep` 通知收集到的依赖做相关操作。
+
+#### get 拦截器是如何收集依赖？
+
+Vue 中有一个叫 `Dep` 的类，专门来收集管理 `Watcher`，而这个 `Dep` 类有一个静态属性，控制当前是哪个 `Watcher`。Vue 这里有个限制，同一时间内只能有一个全局的 `Watcher` 进行处理，不然会乱套了，比如可能会出现 a 组件的 `Watcher` 来处理 b 组件的更新。
+
+每个属性在使用 `defineProperty` 配置的时候，都会初始化一个 `Dep` 的实例来收集改属性的依赖。比如我们再模板上使用了一个属性，会设置当前组件的 `Watcher` 为 `Dep` 的静态属性，然后会触发 `get` 拦截器，就当前的依赖 `Watcher`。
+
+#### 为什么使用 vue
+
+简单易上手，官方文档、教程很友好，很快就可以开发项目。而且官方有一套完整的生态，可以很快得开发一个简单的项目。而 vue 的单文件组件，我觉得开发起来更方便，不需要不断地切换文件
+
+vue-cli 3.x 版本，可以快速建一个 TypeScript 项目，而且 vue3.0 版本是用 TypeScript 重构的，未来 vue 对 TypeScript 会更加得友好
+
+而且 vue 在国内的生态非常得热，对于项目出现问题的解决办法，也会有很多
+
+#### vue 的生命周期
+
+有 beforeCreate, created, beforeMount, mounted, update, beforeDestory, destoryed；如果该组件是在 keep-alive 组件内的，还会有 activited 和 deactivited；主要过程就是初始化 option 、各种内置方法和组件数据，编译模板、挂载 dom，到渲染、更新、卸载等
+
+#### v-model 原理
+
+原理就是一个语法糖，它会帮你创建一个回调事件，当表单控件的数据更改后，触发这个回调事件去修改绑定的属性的值
+
+#### 组件通信的方式
+
+父子：
+
+1. 通过传入 props，给到子组件
+2. 通过 refs 直接获取子组件的属性、或调用方法
+3. provide/inject，这个甚至可以隔代，让它的所有子组件都有生效
+
+子父：
+
+1. 通过 emit 方法，通知父组件
+2. 获取 this.$parent ，得到父组件
+
+兄弟、或无关联组件
+
+1. eventBus
+2. vuex
+
+#### computed 和 watch 区别
+
+computed：
+
+1. 可以对多个属性进行监控，某个属性发生变化，就会调用定义的函数，相当于声明一个新的属性
+2. 而且 computed 会基于里面的属性进行缓存，只有相关的属性发生变化才会重新求值。所以当里面的属性没有变化时，重复的获取 computed 的值，只是从缓存里拿，而没有再次执行里面的代码
+
+watch：
+
+1. 对某个属性近监控，当这个属性发生变化，就会调用定义的函数
+2. 只有属性变化才会触发这个回调，更多地是当属性变化从而处理一些业务逻辑
+
+#### nextTick 原理
+
+> `Vue` 的 `nextTick` 原理，利用了 `JS` 的事件循环机制去，按一定的规则去执行回调
+
+##### nextTick 有什么用
+
+查看 `src/core/util/next-tick.js` 方法，可以看到 `nextTick` 方法并不复杂，主要分成两个部分：
+
+1. 采取什么方式执行回调
+2. 收集回调函数和执行
+
+第一点，`nextTick` 执行回调时采取的是异步的形式，根据情况采用 microtask 或 marcotask 去执行回调，默认 microtask 的形式，当使用事件回调时（`v-on`）则会使用 marco task。并且还会查看当前执行的宿主环境，比如在浏览器，默认采取 `promise` 的形式，而在服务器中，会使用 `setImmediate`。
+
+第二点，`nextTick` 会使用一个数组队列收集你传入的回调，等上一批 `nextTick` 执行完后，会执行下一批的 `nextTick`。为什么这里会分批次执行？因为是异步执行的形式，根据 JS 的事件循环机制，当某段时间内，你的同步代码执行完毕后，会先执行 mircotask，这时候会将收集到的 `nextTick` 回调逐一执行，并且清空回调数组。而在执行回调函数期间生成的新 `nextTick` 则会重新添加到数组中，等待这一批次的回调执行完，再执行。
+
+###### 为什么不采用同步的方式执行回调？
+
+##### 为什么有这个方法
+
+`nextTick` 的存在，其实就是为了执行同一时刻下的异步回调。
+
+而 `nextTick` 主要在两个地方被使用到，一个是 Vue 内部，另一个是用户手动触发。这里主要说下在 Vue 内部的使用。
+
+在 Vue 源码中全局搜索下 `nextTick` 的调用地方，并不多，核心逻辑在 `src/core/observer/scheduler.js` 中的 `queueWatcher` 方法。当 `queueWatcher` 执行时，会传入一个 watcher，接着当 `waiting === false` 时，就会执行 `nextTick` 回调，并传入 `flushSchedulerQueue` 方法。
+
+比如，在执行一个方法时，会循环 1 万次，逐次修改一个属性的值，这时候 Vue 内部却不会触发更新 DOM 1 万次，而只会触发一次，从 1 直接修改为 1 万。这里主要是 `queueWatcher` 的功能，根据传入的 `watcher` 的 id 进行判断，只收集不重复的 `watcher`，减少重复地更新。
+
+总结下：
+
+1. `nextTick` 只是一个简单地异步执行回调的工具函数
+2. 而 `nextTick` 在 Vue 内部，主要是在执行 `watcher` 更新的操作，这里 `Vue` 会根据 `watcher` 的 id 减少重复性地更新操作
+
+##### 参考资料
+
+1. [github - nextTick 原理](https://github.com/Advanced-Frontend/Daily-Interview-Question/issues/281)
+2. [掘金 - nextTick](https://juejin.cn/post/6844903711249022984)
 
 
 
-## 开始
+#### $set 方法原理
 
-[vue 生命周期](http://md.rni-l.com/md/vuelifecycle.png)
+首先会判断是数组还是对象，如果是数组：
+
+则会调用 splice 进行更新
+
+如果是对象，如果当前要修改属性存在，就直接进行修改；如果该对象不是响应式数据，直接赋值；否则对属性进行响应式处理
+
+##### 为什么 this.xxx 可以直接获取到属性
+
+去到 vue 2.x 源码阅读总结 proxy 栏
+
+#### key 的作用
+
+1. 判断两个节点是否相同。相同就复用，不相同就删除旧的创建新的。简单来说，就是为了提升查找性能。
+2. 可以对组件设置 key 值，当我想强制更新该组件的时候，通过修改不同的 key 值进行触发
+
+##### 如果不带 Key 会如何？
+
+1. 如果组件状态比较复杂，比如使用个了多个属性或有一些逻辑判断，会导致渲染结果和预期不一致，无法维持组件的状态
+
+#### 如何渲染大量的数据？
+
+1. 添加加载动画，优化用户体验
+2. 有能力的情况下，使用 SSR 渲染
+3. 可以使用懒加载、异步渲染、分页渲染、切片渲染或虚拟列表等技术进行渲染 DOM
+4. 对于固定的非响应式的数据，使用 Object.freeze 冻结数据，减少 Vue 内部 get set 拦截的处理逻辑
+
+#### 为什么 vue@2 不能监听数组的变化？要对数组方法进行重写才行？
+
+1. Vue@2 能不能监听数组的变化？
+
+   1. 可以，Vue@2 通过改写原生数组的方法，达到监听效果。
+
+   2. > vue对push,pop,splice等方法进行了hack，hack方式很简单，如果加入新对象，**对新对象进行响应式化**
+      > 举例来说对于push和unshift会推入一个新的对象到数组里(不管从前还是从后),记录这个加入的对象，并调用Observe方法将加入的对象转换成响应式对象,对于splice方法，如果加入了新对象也是将该对象响应式化。
+      > 最后一步是向外抛出数组变化，提醒观察者进行更新。
+
+2. 是 Vue@2 不能监听还是 `Object.defineProperty` 不能监听？
+
+   1. Vue@2 不能监听数组项的变化和数组长度的变化，`Object.defineProperty` 是可以监听数组项的值的变化
+
+3. `Object.defineProperty` 不能监听 `length` 的变化，因为 `length` 默认设置了 `non-configurable，non-enumerable`，不可配置和不可枚举
+
+参考代码：`Object.defineProperty` 是可以监听数组的变化
+
+```javascript
+let testArray = [0];
+function test(data, key, val) {
+  Object.defineProperty(data, key, {
+    get() {
+      console.log(val);
+      return val
+    },
+    set(newV) {
+      if (newV !== val) {
+        val = newV;
+        console.log('检测到变更', val ,newV);
+      }
+    },
+  });
+}
+test(testArray, 0, 0);
+
+testArray[0] = 1 // 会显示打印信息
+console.log(testArray); // [1]
+```
 
 
+
+参考文章：
+
+1. [掘金](https://juejin.cn/post/7008710100005158926)
+2. [vue@2 文档 - 数组](https://cn.vuejs.org/v2/guide/reactivity.html#%E5%AF%B9%E4%BA%8E%E6%95%B0%E7%BB%84)
+3. [github - vue 如何对数组方法变异](https://github.com/Advanced-Frontend/Daily-Interview-Question/issues/239)
+
+## 源码
+
+![vue 生命周期](http://md.rni-l.com/md/vuelifecycle.png)
 
 ### 初始化
 
@@ -117,7 +296,7 @@ ASSET_TYPES.forEach(type => {
 
 每个 Vue 实例都会有一个 _uid 记录着
 
-如果 _options 有 _isComponent 的标识：
+如果 _options 有_isComponent 的标识：
 
 执行 initInternalComponent 方法
 
@@ -140,8 +319,6 @@ callHook
 
 ###### initInternalComponent(TODO)
 
-
-
 ##### resolveConstructorOptions
 
 根据当前组件对象，一层层递归它的父类，去处理、剔除重复属性的 options，最终还是志贤 `mergeOptons`
@@ -152,7 +329,7 @@ callHook
 
 然后再处理父类和子类的 options，根据 start 进行合并，赋值到 options
 
-######normalizeProps
+###### normalizeProps
 
 props 支持数组和对象格式，这里主要做了兼容处理而已
 
@@ -160,11 +337,11 @@ props 支持数组和对象格式，这里主要做了兼容处理而已
 
 处理成一个 Object 类型，并赋值到 options 上
 
-######normalizeInject
+###### normalizeInject
 
 和 normalizeProps 大同小异
 
-######normalizeDirectives
+###### normalizeDirectives
 
 和 normalizeProps 大同小异
 
@@ -208,8 +385,6 @@ strats.data = function (
 
 >Vue提供了一个strats对象，其本身就是一个hook,如果strats有提供特殊的逻辑，就走strats,否则走默认merge逻辑
 
-
-
 ##### initLifecycle
 
 定义一些字段，和生命周期的状态值
@@ -220,7 +395,7 @@ strats.data = function (
 
 ##### initRender
 
-给 vm 添加属性： 
+给 vm 添加属性：
 
 * $slots
 * $scopedSlots
@@ -230,10 +405,6 @@ strats.data = function (
 * $listeners
 
 resolveSlots, createElement, defineReactive 后面再讲
-
-
-
-
 
 ## 核心模块
 
@@ -429,8 +600,6 @@ export function popTarget () {
 
 ```
 
-
-
 ### Watcher
 
 ```javascript
@@ -474,8 +643,6 @@ export default class Watcher {
 }
 ```
 
-
-
 ### initData
 
 核心代码：
@@ -516,7 +683,7 @@ export default class Watcher {
 
 在初始化 data 的时候，会从 data, props, methods 组成一个集合；如果有重复就会报错
 
-`      proxy(vm, `_data`, key)` 这里有个代理的操作
+`proxy(vm,`_data`, key)` 这里有个代理的操作
 
 proxy 源码：
 
@@ -538,164 +705,10 @@ props 的值也是一样
 
 而 methods 的值，是直接挂在 `this` 上
 
-
-
-
-
-## 常问问题
-
-
-
-#### Vue 原理
-
-参考：
-
-1. [Vue 的双向绑定](https://github.com/Advanced-Frontend/Daily-Interview-Question/issues/34)
-2. 
-
-Vue 的核心是基于 `Object.defineProperty` 和订阅发布模式，从而实现所谓的 MVVM 模式。当 Vue 初始化时，会通过 `observe` 方法给对应的属性配置 `defineProperty` 的 `get` 和 `set` 拦截器，利用 `get` 拦截器收集依赖，当属性被修改时，触发 `set` 拦截器，根据当前属性收集到的依赖，它们进行 `update` 操作，从而更新 DOM。
-
-##### 这个所谓的依赖指的是什么？
-
-首先我们要理清哪个是发布者哪个是订阅者
-
-在使用 `defineProerty` 配置属性的时候，里面的 `set` 拦截器相当于发布者，它通过 `Dep` 去管理订阅者，也就是 `Watcher`。
-
-在源码里，这个依赖就是 `Watcher` 类，它相当于 MVVM 模式中的 `VM`，是用于视图和控制层之间通信的。
-
-我们在目标上使用了某个属性时，就会开始收集依赖。这时候会触发属性的 `get` 拦截器，让当前的 `Watcher` 缓存当前属性的 `Dep`，并让 `Dep` 收集依赖 `Watcher`。
-
-该属性收集到依赖，就是为了后面更新的时候使用。当我们修改属性时的时候，就会触发 `set` 拦截器，让当前属性的 `Dep` 通知收集到的依赖做相关操作。
-
-##### get 拦截器是如何收集依赖？
-
-Vue 中有一个叫 `Dep` 的类，专门来收集管理 `Watcher`，而这个 `Dep` 类有一个静态属性，控制当前是哪个 `Watcher`。Vue 这里有个限制，同一时间内只能有一个全局的 `Watcher` 进行处理，不然会乱套了，比如可能会出现 a 组件的 `Watcher` 来处理 b 组件的更新。
-
-每个属性在使用 `defineProperty` 配置的时候，都会初始化一个 `Dep` 的实例来收集改属性的依赖。比如我们再模板上使用了一个属性，会设置当前组件的 `Watcher` 为 `Dep` 的静态属性，然后会触发 `get` 拦截器，就当前的依赖 `Watcher`。
-
-#### watcher 是如何更新？
-
-这里面有个 `queueWatch`，队列的功能在里面….
-
-
-
-#### 为什么使用 vue
-
-简单易上手，官方文档、教程很友好，很快就可以开发项目。而且官方有一套完整的生态，可以很快得开发一个简单的项目。而 vue 的单文件组件，我觉得开发起来更方便，不需要不断地切换文件
-
-vue-cli 3.x 版本，可以快速建一个 TypeScript 项目，而且 vue3.0 版本是用 TypeScript 重构的，未来 vue 对 TypeScript 会更加得友好
-
-而且 vue 在国内的生态非常得热，对于项目出现问题的解决办法，也会有很多
-
-
-
-#### vue 的生命周期
-
-有 beforeCreate, created, beforeMount, mounted, update, beforeDestory, destoryed；如果该组件是在 keep-alive 组件内的，还会有 activited 和 deactivited；主要过程就是初始化 option 、各种内置方法和组件数据，编译模板、挂载 dom，到渲染、更新、卸载等
-
-
-
-#### v-model 原理
-
-原理就是一个语法糖，它会帮你创建一个回调事件，当表单控件的数据更改后，触发这个回调事件去修改绑定的属性的值
-
-
-
-#### 组件通信的方式
-
-父子：
-
-1. 通过传入 props，给到子组件
-2. 通过 refs 直接获取子组件的属性、或调用方法
-3. provide/inject，这个甚至可以隔代，让它的所有子组件都有生效
-
-子父：
-
-1. 通过 emit 方法，通知父组件
-2. 获取 this.$parent ，得到父组件
-
-兄弟、或无关联组件
-
-1. eventBus
-2. vuex
-
-
-
-#### computed 和 watch 区别
-
-computed：
-
-1. 可以对多个属性进行监控，某个属性发生变化，就会调用定义的函数，相当于声明一个新的属性
-2. 而且 computed 会基于里面的属性进行缓存，只有相关的属性发生变化才会重新求值。所以当里面的属性没有变化时，重复的获取 computed 的值，只是从缓存里拿，而没有再次执行里面的代码
-
-watch：
-
-1. 对某个属性近监控，当这个属性发生变化，就会调用定义的函数
-2. 只有属性变化才会触发这个回调，更多地是当属性变化从而处理一些业务逻辑
-
-
-
-#### nextTick 原理
-
-`Vue` 的 `nextTick` 原理，其实就是利用了 `JS` 的事件循环机制从而实现的。
-
-这里要说明下  `JS` 的事件循环机制…..（见面试问题）
-
-在 Vue 初始化的时候，首先 `nextTick` 会根据当前宿主环境，比如浏览器或者 Node，判断哪些全局方法可以使用，在浏览器会用 `Promise` 或者 `setTimeout` 实现。
-
-因为 `nextTick` 要的效果是异步的，通常在浏览器 `nextTick` 会使用 `Promise` 去实现异步，也就是事件循环机制里面的 `microtask`，利用这个特性，在下一次同步任务调用前，这期间可能会有多个 `nextTick` 被调用，会有一个数组专门收集传入的回调函数。这里面还会有一个锁，用来防止回调函数被重复调用。当 `JS` 线程的同步任务都完成后，就会执行这个数组里面所有的回调函数，然后清空数组。
-
-简单来说，`nextTick` 方法利用事件循环机制，将某一时期执行的 `nextTick` 回调函数使用一个队列保存，等 `JS` 的同步任务执行完后，执行 `microTask`，将其中收集到的回调函数逐一调用，并清空队列。
-
-##### 好处
-
-如果 `nextTick` 改为修改 DOM 后立即触发回调，当我们对某一处地方连续大量修改属性，从而触发 DOM 的更新，接着执行对应的 `nextTick` 回调，会影响后面视图 DOM 的更新效率。改为异步，并使用队列集中缓存回调函数，最后一并执行，会提升视图层渲染效果更加流畅
-
-
-
-#### $set 方法原理
-
-首先会判断是数组还是对象，如果是数组：
-
-则会调用 splice 进行更新
-
-如果是对象，如果当前要修改属性存在，就直接进行修改；如果该对象不是响应式数据，直接赋值；否则对属性进行响应式处理
-
-
-
-##### 为什么 this.xxx 可以直接获取到属性
-
-去到 vue 2.x 源码阅读总结 proxy 栏
-
-
-
-#### key 的作用
-
-这里分两种情况，使用 key 会怎样，不使用会怎样。
-
-不使用 key: 
-
-1. 对于无状态的列表组件，不使用 key 会触发“就地复用节点”逻辑，当数据更新时，不需要频繁地销毁和创建节点，更高效
-2. 因为触发“就地复用节点”逻辑，当列表组件是含有状态变化的，会导致状态变化时，渲染异常，比如多个组件渲染状态错误
-
-使用 key:
-
-1. 当数据更新时，会触发销毁和创建的逻辑，准确渲染组件
-2. 有时候我们可以根据这个逻辑，实现组件刷新的逻辑，比如设置 key 为一个时间戳的值，将该 key 赋值到某个需要的组件，当我需要强制刷新组件的时候，修改这个 key 的值就会自动销毁并创建组件
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+## 参考资料
+
+1. [muwoo](https://github.com/muwoo/blogs)
+2. [染陌](https://github.com/answershuto/learnVue)
+2. [掘金 - Vue 监听数组的问题](https://juejin.cn/post/7008710100005158926)
+2. [github - vue 如何对数组方法变异](https://github.com/Advanced-Frontend/Daily-Interview-Question/issues/239)
+2. [github - nextTick 原理](https://github.com/Advanced-Frontend/Daily-Interview-Question/issues/281)
