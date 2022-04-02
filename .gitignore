@@ -4,3 +4,4 @@ node_modules
 upload.sh
 docs/.vuepress/dist
 local.config.ts
+.DS_Store

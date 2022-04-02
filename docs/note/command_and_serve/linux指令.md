@@ -325,6 +325,12 @@ gpgkey=https://www.mongodb.org/static/pgp/server-3.4.asc
 
 
 
+##### brew 安装 mongodb
+
+配置文件：`/opt/homebrew/etc/mongod.conf`
+
+
+
 ### nodejs - nginx配置
 
 阿里云配置`DNS`

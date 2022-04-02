@@ -175,18 +175,18 @@ export const getMap = (): MapType[] => [{
         {
           name: "构建工具/工程化相关",
           children: [
-            { name: "Webpack" },
+            { name: "Webpack", link: "/note/frontend/工程化/webpack.html" },
             {
               name: "Vite",
               children: [
-                { name: "原理/概念", link: "" },
+                { name: "原理/概念", link: "/note/frontend/工程化/vite.html" },
                 { name: "遇到的问题", link: "" }
               ]
             },
             {
               name: "Babel",
               children: [
-                { name: "原理/概念", link: "/note/frontend/babel.html" },
+                { name: "原理/概念", link: "/note/frontend/工程化/babel.html" },
                 { name: "遇到的问题", link: "" },
                 { name: "开发一个 Babel 插件", link: "" }
               ]
@@ -194,9 +194,8 @@ export const getMap = (): MapType[] => [{
             {
               name: "Monorepo",
               children: [
-                { name: "Lerna", link: "/note/frontend/lerna.html" },
-                { name: "多个独立包模式", link: "/note/frontend/lerna.html" },
-                { name: "Lerna vs Turborepor vs Nx", link: "/note/frontend/lerna.html" }
+                { name: "Lerna", link: "/note/frontend/工程化/lerna.html" },
+                { name: "Monorepo 架构", link: "/note/frontend/工程化/monorepo.html" }
               ]
             },
             { name: "项目工程化设计" },
