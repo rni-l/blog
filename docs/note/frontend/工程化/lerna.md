@@ -118,6 +118,32 @@ lerna WARN EHOIST_PKG_VERSION "h5" package depends on element-ui@2.14.1, which d
 
 除非特殊情况，建议还是同一个依赖用一个版本号。
 
+
+
+## 问题
+
+### 如何批量添加依赖？
+
+```shell
+lerna add xxx
+```
+
+如果想添加依赖到对应一个包：
+
+```shell
+lenra add xxx --scope=package
+```
+
+添加多个依赖：
+
+```shell
+lerna add xxx --scope=a1 --scope=a2
+```
+
+
+
+
+
 ## 参考链接
 
 1. [medium- lenra JS package 管理工具](https://medium.com/lion-f2e/lerna-js-package-管理工具-e9ed360d1143)

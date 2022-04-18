@@ -94,8 +94,9 @@ categories: ["monorepo"]
 4. 尽可能优化 node_modules
 5. 提供文档，说明项目的安装、运行、发布
 
-1. [lerna 实践](/ddd.html)
-2. [turborepo 实践](/ddd.html)
+6. [lerna 实践](/note/frontend/工程化/lerna.html)
+7. [npm-workspace & yarn-workspace](/note/frontend/工程化/npm-workspace&yarn-workspace.html)
+8. [turborepo 实践](/ddd.html)
 
 
 
