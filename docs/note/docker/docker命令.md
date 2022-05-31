@@ -10,8 +10,6 @@ categories: ["记录"]
 
  # Docker
 
-### 命令
-
 #### 镜像
 
 * 拉取镜像：`docker pull name[:TAG]`
@@ -88,12 +86,20 @@ categories: ["记录"]
   * `-p`
     * 随机映射一个端口到内部容器开放的网络端口
     * 将服务器的 4444 端口指向容器的 80 端口：`-p 4444:80`
-* 停止容器：`docker stop CONTAINER`
-* 删除容器：`docker rm CONTAINER`
+* 停止容器：`docker stop CONTAINER-ID`
+* 删除容器：`docker rm CONTAINER-ID`
+* 查看容器进程：docker ps
 * 查看当前运行容器：`docker container ls`
 * 查看容器日志：`docker container logs [container ID or NAMES]`
 * 执行命令：`docker exec [options] {container id} {bash}`
   * `exec` 命令不会因为输入终止而把容器进程关闭；但 `attach` 会
+
+
+
+### Volume
+
+* 创建 volume: `docker volume create {name}`
+* 查看 volume 信息：`docker volme inspect {name}`
 
 
 
@@ -106,4 +112,10 @@ categories: ["记录"]
 
 
 
+
+## QA
+
+### arm 架构问题
+
+添加 `--platform "linux/amd64"` 声明平台
 
