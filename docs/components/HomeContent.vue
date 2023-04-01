@@ -2,7 +2,7 @@
   <div class="m-home">
     <div class="profile">
       <img src="/avatar.png" alt="" class="avatar">
-      <div class="profile-item name">Drg</div>
+      <div class="profile-item name">Rnil</div>
       <div class="profile-item">Web 前端开发</div>
     </div>
 

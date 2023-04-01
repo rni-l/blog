@@ -9,38 +9,38 @@ import { defineUserConfig, HeadConfig } from 'vuepress'
 import type { DefaultThemeOptions } from 'vuepress'
 import { generatePathTree, generateVuepressChildren } from './utils'
 import { join, resolve } from 'path'
-import { baidu, search } from '../../local.config'
+import { baidu } from '../../local.config'
+import { searchPlugin } from '@vuepress/plugin-search'
+import { defaultTheme } from '@vuepress/theme-default'
+import * as path from 'path'
+
 
 const articlePaths = generatePathTree(join(__dirname, '../article'), '/article')
 const notePaths = generatePathTree(join(__dirname, '../note'), '/note')
 const lifePaths = generatePathTree(join(__dirname, '../life'), '/life')
 
-export default defineUserConfig<DefaultThemeOptions>({
+export default defineUserConfig({
   // 站点配置
   lang: 'zh-cn',
   title: '个人记录...',
   description: '记录',
 
   plugins: [
-    [
-      '@vuepress/docsearch',
-      {
-        ...search(),
-        locals: {
-          '/': {
-            placeholder: '搜索文档',
-          }
-        }
-      },
-    ],
+    searchPlugin
   ],
+
+  markdown: {
+    toc: {
+      level: [2,3,4],
+      shouldAllowNested: true
+    }
+  },
 
   head: [
     baidu?.()
   ].filter(v => v) as HeadConfig[],
 
-  theme: resolve(__dirname, './theme.ts'),
-  themeConfig: {
+  theme: defaultTheme({
     logo: './avatar.png',
     lastUpdated: true,
     contributors: false,
@@ -70,5 +70,5 @@ export default defineUserConfig<DefaultThemeOptions>({
       '/note': generateVuepressChildren(notePaths),
       '/life': generateVuepressChildren(lifePaths),
     }
-  },
+  })
 })

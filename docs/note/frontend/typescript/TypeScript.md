@@ -738,3 +738,23 @@ console.log((a as string).substring(0))
 12. 减少使用 `export default` ，[链接](https://jkchao.github.io/typescript-book-chinese/tips/avoidExportDefault.html)
 
 13. 比如添加修改的接口，它们的接口定义都是类似的，只不过添加没有 id，这个要怎么重用？
+
+14. 枚举无法引入别的枚举
+
+    1. ```typescript
+       // typescript define enum with constant string value', 'string enum computed constant'
+       enum a {
+         a = '1',
+         b = '2'
+       }
+       
+       enum b {
+         a = a.a,
+         b = a.b,
+         c = '3' // error
+       }
+       ```
+
+    2. [github-issue](https://github.com/microsoft/TypeScript/issues/40793)
+
+    3. 暂时不能解决，官方没解决

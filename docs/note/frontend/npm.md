@@ -13,6 +13,8 @@ categories: ["记录"]
 
 > `Npm` 是用于管理 `NodeJS` 包的版本控制工具，通过 `Npm` 的命令和相关配置使你的项目可以使用 `Npm` 源内的开放的包。
 
+它是一个基于 NodeJS 实现的 CLI 工具，用于管理 JavaScript/TypeScript 等项目的依赖
+
 ### 它能做什么?
 
 1. 发布属于你自己的代码包
@@ -92,23 +94,109 @@ nrm add <registry> <url> [home]          # Add one custom registry
 
 [`Npm` 版本计算器](https://semver.npmjs.com/)
 
-简单来讲：
+* `^`: 首先匹配该版本最左侧第一个非零位的、最大的版本
+  * 比如有 0.1.0, 0.1.1, 0.2.0, 1.0.0，这时候最左侧第一个非零位的是 minor 位，最大的是 2，所以会安装 0.2.0 的版本
+* ~: 安装 minor 为最大的版本
 
-## package-lock.json 属性详解
+#### dependencies & devDependencies & peerDependencies
+
+* dependencies: 必须需要安装的依赖列表
+
+* devDependencies: 本地开发时需要安装的依赖列表
+
+  * 可以通过 `npm i --product` 或者 `npm i --omit=dev` 不按照该列表
+
+* peerDependencies: 用于自己在开发包，提示使用者的一些信息
+
+  * > When a user installs your package, npm will emit warnings if packages specified in `peerDependencies` are not already installed
+
+  * 如果使用该包的那个项目没有安装它要求的依赖，就会提示信息:
+
+    ```shell
+    npm WARN ERESOLVE overriding peer dependency
+    npm WARN While resolving: test-npm@1.0.0
+    npm WARN Found: vue-router@4.1.6
+    npm WARN node_modules/vue-router
+    npm WARN   peer vue-router@"^4.1.6" from test-npm-pkg@1.0.1
+    npm WARN   node_modules/test-npm-pkg
+    npm WARN     test-npm-pkg@"^1.0.1" from the root project
+    npm WARN   1 more (the root project)
+    npm WARN 
+    npm WARN Could not resolve dependency:
+    npm WARN peer vue-router@"^4.1.6" from test-npm-pkg@1.0.1
+    npm WARN node_modules/test-npm-pkg
+    npm WARN   test-npm-pkg@"^1.0.1" from the root project
+    ```
+
+    
+
+可输入的版本内容：
+
+```json
+{
+  "dependencies": {
+    "foo": "1.0.0 - 2.9999.9999",
+    "bar": ">=1.0.2 <2.1.2",
+    "baz": ">1.0.2 <=2.3.4",
+    "boo": "2.0.1",
+    "qux": "<1.0.0 || >=2.3.1 <2.4.5 || >=2.5.2 <3.0.0",
+    "asd": "http://asdf.com/asdf.tar.gz",
+    "til": "~1.2",
+    "elf": "~1.2.3",
+    "two": "2.x",
+    "thr": "3.3.x",
+    "lat": "latest",
+    "dyl": "file:../dyl"
+  }
+}
+```
+
+
+
+## Npm 安装依赖的缓存逻辑
 
 ## Npm 包发布流程
 
 ## Npm 安装依赖流程
 
-## Npm 常用命令
-
 ## Npm 私有源的搭建
+
+使用 `verdaccio` 进行搭建
+
+[verdaccio](https://verdaccio.org/zh-cn/docs/cli/)
+
+
+
+## Npm vs Yarn vs Pnpm
+
+这三个都是管理 NodeJs 的依赖的工具。
+
+Npm 是最早的包管理工具
+
+Yarn 的出现是解决 Npm 早期依赖包是树形结构的问题而出现的
+
+Pnpm 的出现是解决 Npm 依赖占用的磁盘空间过大的问题
+
+Pnpm 会将安装的新依赖统一存储在一个文件夹内，旧依赖就会使用链接的方式访问，这会解决两个问题：
+
+1. 不会像 Npm 那样占用大量的磁盘空间
+2. NodeJs 的 `require` 无法引入不在 `dependencies` 中的依赖
+   1. Npm 和 Yarn 会有，因为它们会出现依赖提升，`dependencies` 依赖中需要安装的依赖，会被提升到 项目根目录中的 `node_modules` 
+
+
+
+![npm1](../../../../../hugo/static/img/npm1.png)
+
+
 
 ## 常见问题
 
 ## 参考资料
 
 1. [npm 官方文档](https://docs.npmjs.com/)
-2. [CornardLi 的 blog - npm 的包管理机制](http://www.conardli.top/blog/article/%E5%89%8D%E7%AB%AF%E5%B7%A5%E7%A8%8B%E5%8C%96/%E5%89%8D%E7%AB%AF%E5%B7%A5%E7%A8%8B%E5%8C%96-%E5%89%96%E6%9E%90npm%E7%9A%84%E5%8C%85%E7%AE%A1%E7%90%86%E6%9C%BA%E5%88%B6%EF%BC%88%E5%AE%8C%E6%95%B4%E7%89%88%EF%BC%89.html#%E5%AF%BC%E8%AF%BB)
+2. [CornardLi 的 blog - npm 的包管理机制](https://blog.conardli.top/2019/12/17/engineering/npm/)
 3. [nrm](https://www.npmjs.com/package/nrm)
 4. [yrm](https://www.npmjs.com/package/yrm)
+5. [npm - package.json 属性说明](https://docs.npmjs.com/cli/v9/configuring-npm/package-json#dependencies)
+6. [pnpm](https://pnpm.io/motivation)
+7. [pnpm - 介绍](https://juejin.cn/post/6932046455733485575#heading-8)

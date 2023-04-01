@@ -41,6 +41,18 @@ xxx sshd[25813]: Failed publickey xxxx
 
 
 
+### 修改 /root 拥有者
+
+```shell
+chown root /root
+```
+
+
+
+具体链接：[stackover - change root](https://stackoverflow.com/questions/13784607/connecting-to-a-remote-centos-server-using-ssh-keys/13805133#13805133)
+
+
+
 ### 配置权限
 
 根据大神的说法，ssh 连接对文件的权限管控得很严，请按照下发的命令按序执行：
@@ -48,7 +60,7 @@ xxx sshd[25813]: Failed publickey xxxx
 ```shell
 chmod 700 ~/.ssh
 chmod 600 ~/.ssh/authorized_keys
-chmod 644 ~/.known_hosts # 不要漏了这个，我就是漏了这个，导致不行...
+chmod 644 ~/.known_hosts
 ```
 
 具体链接：[stackoverflow  - Configuring SSH with Keys in Slackware 13.0](https://stackoverflow.com/questions/20293981/configuring-ssh-with-keys-in-slackware-13-0)
@@ -84,4 +96,5 @@ ls -laZ
 ## 参考资料
 
 1. [stackoverflow  - Configuring SSH with Keys in Slackware 13.0](https://stackoverflow.com/questions/20293981/configuring-ssh-with-keys-in-slackware-13-0)
+1. [stackover - change root](https://stackoverflow.com/questions/13784607/connecting-to-a-remote-centos-server-using-ssh-keys/13805133#13805133)
 1. [segmentfault - CentOS SSH公钥登录问题](https://segmentfault.com/q/1010000000445726)

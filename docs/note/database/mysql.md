@@ -89,7 +89,7 @@ INSERT INTO orders(
     ->   ('test3', '2018-03-11');
 ```
 
-###更新数据
+### 更新数据
 
 ```
 // 会更新在 orders 表中，所有的 order_name 值为 'test_update'

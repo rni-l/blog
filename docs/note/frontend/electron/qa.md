@@ -235,7 +235,10 @@ autoUpdater.requestHeaders = {'Cache-Control' : 'no-store, no-cache, must-revali
 
 [github - elctron-builder - issue 解决没有 latest.yml 的问题](https://github.com/electron-userland/electron-builder/issues/925#issuecomment-282008092)
 
+### Windows 没有 app-update.yml 文件
 
+1. [stackoverflow](https://stackoverflow.com/questions/67191654/problem-with-app-update-yml-files-is-not-generated-in-electron)
+2. [github - Auto update doesn't work: app-update.yml is missing](https://github.com/electron-userland/electron-builder/issues/4233)
 
 
 ## 性能问题

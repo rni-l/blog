@@ -17,13 +17,16 @@ export default {
   components: {
     Layout,
   },
+  created() {
+    console.log('ok');
+  }
 }
 </script>
 
 <style lang="scss">
 .home-layout {
   .theme-default-content {
-    max-width: 100%;
+    max-width: 1200px;
   }
 }
 </style>

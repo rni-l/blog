@@ -47,7 +47,7 @@ const [r1,r2] = await test([ () => Promise.resolve(1), () => Promise.resolve(tru
 // 类型：[number | boolean, number | boolean]
 ```
 
-没有精确地推断出每个项是什么类型，而我想要的效果是能精确推断出来，因为我传入的值是可知的，这时候就要用到这篇记录的主题：Tuple Type
+**没有精确地推断出每个项是什么类型**，而我想要的效果是能精确推断出来，因为我传入的值是可知的，这时候就要用到这篇记录的主题：Tuple Type
 
 
 

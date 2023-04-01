@@ -1,5 +1,5 @@
 ---
-title: npm-workspace & yarn-workspace
+lltitle: npm-workspace & yarn-workspace
 date: 2022-04-18 15:00:00
 tags: ["workspace"]
 categories: ["记录"]

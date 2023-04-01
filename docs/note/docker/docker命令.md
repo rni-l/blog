@@ -25,8 +25,9 @@ categories: ["记录"]
 
 * copy
 
-  * 复制当前上下文的文件到镜像
+  * 复制当前上下文的所有文件到对应目录
   * `COPY [--chown=<user>:<group>] <源路径>... <目标路径>`
+  * 
 
 * ADD
 
@@ -118,4 +119,14 @@ categories: ["记录"]
 ### arm 架构问题
 
 添加 `--platform "linux/amd64"` 声明平台
+
+
+
+
+
+
+
+docker run --name {} -v {}:/usr/share/nginx/html:ro -p 8088:80 -d nginx
+
+docker run --name test-js -v /Users/ddd/Downloads:/usr/share/nginx/html:ro -p 8088:80 -d nginx
 

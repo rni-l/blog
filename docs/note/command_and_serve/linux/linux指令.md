@@ -27,8 +27,6 @@ categories: ["记录"]
 
 #### xx
 
-* netstat -plntu : 查看端口
-
 * ps -ef|grep xxx : 查看 xxx 的进程
 
 * top -H -p {pid}: 查看某进程下的线程数
@@ -55,7 +53,7 @@ categories: ["记录"]
       ```
       
   * head:  
-  
+
        ```shell
        跟tail是相反的，tail是看后多少行日志；例子如下：
        
@@ -65,9 +63,9 @@ categories: ["记录"]
        ```
 
   * cat： 
-  
+
     tac是倒序查看，是cat单词反写；例子如下：
-  
+
      cat -n test.log |grep "debug"   查询关键字的日志
 
 查看进程
@@ -97,6 +95,7 @@ cat /proc/cpuinfo| grep "processor"| wc -l
 ### 查看内存
 
 ```shell
+cat /proc/meminfo
 free -m // 查看内存信息
 df -h // 查看硬盘信息
 top // 查看内存使用情况
@@ -168,6 +167,9 @@ z    Flags   任务标志，参考 sched.h
 ```shell
 vi /etc/sysconfig/iptables
 service iptables restart
+
+firewall-cmd --permanent --add-port=4803/tcp
+systemctl restart firewalld.service
 ```
 
 
@@ -437,6 +439,14 @@ fi
 $dir=""
 if [ ! -d "$dir" ]; then
   echo "不存在"
+fi
+
+if [ command ];then
+   符合该条件执行的语句
+elif [ command ];then
+   符合该条件执行的语句
+else
+   符合该条件执行的语句
 fi
 
 ```
