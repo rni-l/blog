@@ -4,22 +4,62 @@
     "type": "split",
     "children": [
       {
-        "id": "a5cdcc37c0f3390f",
+        "id": "e05bddb6331b6759",
         "type": "tabs",
         "children": [
           {
-            "id": "db9156f3925cc693",
+            "id": "5ed7f612e0a0a5f0",
+            "type": "leaf",
+            "state": {
+              "type": "canvas",
+              "state": {
+                "file": "ora-graph.canvas",
+                "viewState": {
+                  "x": 349.4449858740247,
+                  "y": -597.6873796548833,
+                  "zoom": -0.36851509105903557
+                }
+              }
+            }
+          },
+          {
+            "id": "d2c113c345d3671b",
             "type": "leaf",
             "state": {
               "type": "markdown",
               "state": {
-                "file": "note/frontend/源码/vue-router.md",
+                "file": "note/nodejs/标准输出和输入.md",
+                "mode": "source",
+                "source": false
+              }
+            }
+          },
+          {
+            "id": "58913896ea58af7f",
+            "type": "leaf",
+            "state": {
+              "type": "markdown",
+              "state": {
+                "file": "note/interview/test.md",
+                "mode": "source",
+                "source": false
+              }
+            }
+          },
+          {
+            "id": "2055cfa35fa28762",
+            "type": "leaf",
+            "state": {
+              "type": "markdown",
+              "state": {
+                "file": "note/frontend/源码/ora.md",
                 "mode": "source",
                 "source": false
               }
             }
           }
-        ]
+        ],
+        "currentTab": 3
       }
     ],
     "direction": "vertical"
@@ -85,7 +125,7 @@
             "state": {
               "type": "backlink",
               "state": {
-                "file": "note/frontend/源码/vue-router.md",
+                "file": "note/frontend/源码/ora.md",
                 "collapseAll": false,
                 "extraContext": false,
                 "sortOrder": "alphabetical",
@@ -102,7 +142,7 @@
             "state": {
               "type": "outgoing-link",
               "state": {
-                "file": "note/frontend/源码/vue-router.md",
+                "file": "note/frontend/源码/ora.md",
                 "linksCollapsed": false,
                 "unlinkedCollapsed": true
               }
@@ -125,7 +165,7 @@
             "state": {
               "type": "outline",
               "state": {
-                "file": "note/frontend/源码/vue-router.md"
+                "file": "note/frontend/源码/ora.md"
               }
             }
           }
@@ -146,17 +186,27 @@
       "command-palette:Open command palette": false
     }
   },
-  "active": "db9156f3925cc693",
+  "active": "2055cfa35fa28762",
   "lastOpenFiles": [
-    "static/mock-router/vue-router3.png",
-    "Untitled.canvas",
+    "note/frontend/源码/chalk.md",
+    "note/frontend/源码/ora的副本.md",
+    "note/frontend/源码/pinia.md",
     "note/frontend/源码/vue-router.md",
+    "note/frontend/electron/构建&更新.md",
+    "note/frontend/electron/基础概念.md",
+    "note/frontend/源码/ora.md",
+    "note/nodejs/标准输出和输入.md",
+    "note/interview/test.md",
+    "ora-graph.canvas",
+    "note/nodejs/内存管理.md",
+    "Untitled 2.canvas",
+    "Untitled.canvas",
+    "static/mock-router/vue-router3.png",
     "static/mock-router/mock-router2.png",
     "static/mock-router/mock-router1.png",
     "static/mock-router",
     "static/未命名文件夹",
     "note/frontend/工程化/monorepo.md",
-    "note/frontend/源码/pinia.md",
     "note/base/algorithm/数据结构.md",
     "static/docker-core.png"
   ]

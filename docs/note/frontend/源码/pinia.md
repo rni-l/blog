@@ -1,4 +1,9 @@
-# Pinia 源码学习
+---
+title: Pinia 源码学习
+date: 2022-12-31 22:49:00
+tags: ["js", "pinia"]
+categories: ["记录"]
+---
 
 ## 学习的目标
 

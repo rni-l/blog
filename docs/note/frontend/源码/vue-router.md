@@ -1,4 +1,9 @@
-# Vue-Router 源码阅读
+---
+title: Vue-Router 源码学习
+date: 2023-03-21 17:18:00
+tags: ["js", "vue-router"]
+categories: ["记录"]
+---
 
 
 ## 目标
@@ -121,6 +126,33 @@
 1. 提供一些依赖
 2. 从 `matchedRoute` 获取到要渲染的路由组件
 3. 当路由信息变化时，根据相关逻辑触发 `leaveGuards` 和 `updateGuards`
+
+根据 `inject(routerViewLocationKey)` 获取到当前 `match` 的路由信息，然后再根据 `depth` 获取到要渲染的路由组件：
+``` typescript
+// 伪代码
+const injectedRoute = inject(routerViewLocationKey)!
+const routeToDisplay = computed<RouteLocationNormalizedLoaded>(
+ () => props.route || injectedRoute.value
+)
+const injectedDepth = inject(viewDepthKey, 0)
+cont depth = computed<number>(() => {
+  let initialDepth = unref(injectedDepth)
+  const { matched } = routeToDisplay.value
+  let matchedRoute: RouteLocationMatched | undefined
+  while (
+    (matchedRoute = matched[initialDepth]) &&
+    !matchedRoute.components
+  ) {
+    initialDepth++
+  }
+  return initialDepth
+})
+// 当前要渲染的路由信息
+const matchedRouteRef = computed<RouteLocationMatched | undefined>(
+  () => routeToDisplay.value.matched[depth.value]
+)
+
+```
 
 ### 为什么 `useRoute` 和 `useRouter` 不能在 `setup` 和函数组件外使用
 

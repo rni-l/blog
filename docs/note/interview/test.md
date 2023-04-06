@@ -480,7 +480,7 @@ window.addEventListener('unhandledrejection', (e) => {
 
 
 
-#####  demo
+#####  demo - inquirer
 
 `inquirer` 实现 demo:
 
@@ -530,9 +530,7 @@ rl.input.on('keypress', (key, info) => {
 });
 ```
 
-
-
-
+#####  demo - ora
 
 `ora` 实现 demo:
 

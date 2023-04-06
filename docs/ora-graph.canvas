@@ -1,0 +1,29 @@
+{
+	"nodes":[
+		{"type":"text","text":"restore-cursor\nhttps://github.com/sindresorhus/restore-cursor/blob/main/index.js","id":"671b60077c3edf39","x":-265,"y":100,"width":250,"height":160},
+		{"type":"text","text":"onetime\nhttps://github.com/sindresorhus/onetime\n","id":"6cb8320f9b589ef5","x":-360,"y":520,"width":250,"height":120},
+		{"type":"text","text":"signal-exit\nhttps://github.com/tapjs/signal-exit","id":"3f9bab75d2089349","x":20,"y":520,"width":250,"height":120},
+		{"type":"text","text":"cli-cursor\nhttps://github.com/sindresorhus/cli-cursor","id":"ddd6826c45118f29","x":-200,"y":-220,"width":250,"height":114},
+		{"type":"text","text":"cli-spinners\nhttps://github.com/sindresorhus/cli-spinners","id":"2883daf23522a9d4","x":200,"y":-220,"width":250,"height":114},
+		{"type":"text","text":"log-symbols\nhttps://github.com/sindresorhus/log-symbols","id":"d20d3ce5377a8f53","x":520,"y":-220,"width":250,"height":114},
+		{"type":"text","text":"strip-ansi\nhttps://github.com/chalk/strip-ansi","id":"9ea340efcd62b98e","x":770,"y":-440,"width":250,"height":114},
+		{"type":"text","text":"wcwidth\nhttps://github.com/timoxley/wcwidth","id":"508fe4c01389ef8b","x":740,"y":-797,"width":250,"height":114},
+		{"type":"text","text":"is-interactive\nhttps://github.com/sindresorhus/is-interactive","id":"b40f63a7713fffe4","x":615,"y":-1020,"width":250,"height":114},
+		{"type":"text","text":"is-unicode-supported\nhttps://github.com/sindresorhus/is-unicode-supported","id":"bb8e0523624f0505","x":460,"y":-1220,"width":250,"height":114},
+		{"type":"text","text":"stdin-discarder\nhttps://github.com/sindresorhus/stdin-discarder","id":"3213d9667fd31823","x":80,"y":-1277,"width":250,"height":114},
+		{"type":"text","text":"ora","id":"9cdf6b63abc300be","x":-20,"y":-765,"width":250,"height":50,"color":"1"}
+	],
+	"edges":[
+		{"id":"0db3261c75e06a66","fromNode":"671b60077c3edf39","fromSide":"bottom","toNode":"6cb8320f9b589ef5","toSide":"top"},
+		{"id":"158b515119f09059","fromNode":"671b60077c3edf39","fromSide":"bottom","toNode":"3f9bab75d2089349","toSide":"top"},
+		{"id":"9c58dbce2fa5723b","fromNode":"9cdf6b63abc300be","fromSide":"bottom","toNode":"ddd6826c45118f29","toSide":"top"},
+		{"id":"ed3964403310ef0c","fromNode":"ddd6826c45118f29","fromSide":"bottom","toNode":"671b60077c3edf39","toSide":"top"},
+		{"id":"30a8795e998dd2cb","fromNode":"9cdf6b63abc300be","fromSide":"bottom","toNode":"2883daf23522a9d4","toSide":"top"},
+		{"id":"dcf9b0cf1fbb0420","fromNode":"9cdf6b63abc300be","fromSide":"bottom","toNode":"d20d3ce5377a8f53","toSide":"top"},
+		{"id":"66a5005160e1616c","fromNode":"9cdf6b63abc300be","fromSide":"bottom","toNode":"9ea340efcd62b98e","toSide":"top"},
+		{"id":"3f76bafe125e536a","fromNode":"9cdf6b63abc300be","fromSide":"right","toNode":"508fe4c01389ef8b","toSide":"left"},
+		{"id":"e2a21f6b7e5a1283","fromNode":"9cdf6b63abc300be","fromSide":"right","toNode":"b40f63a7713fffe4","toSide":"left"},
+		{"id":"0338e3e62fb46285","fromNode":"9cdf6b63abc300be","fromSide":"top","toNode":"bb8e0523624f0505","toSide":"bottom"},
+		{"id":"3249d4b238c5115b","fromNode":"9cdf6b63abc300be","fromSide":"top","toNode":"3213d9667fd31823","toSide":"bottom"}
+	]
+}
