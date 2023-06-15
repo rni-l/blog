@@ -10,11 +10,33 @@ categories: ["记录"]
 
  # Docker
 
+## 常用命令
+
+### 构建 Nginx，指向目录的 HTML
+``` shell
+docker run --name {容器名称} -v {目标地址}:/usr/share/nginx/html:ro -d -p {暴露端口}:80 nginx
+
+# demo
+docker run --name da1 -v /Users/ddd/D/core/nginx-utils:/usr/share/nginx/html:ro -d -p 5554:80 nginx
+```
+
+### 构建 Nginx，指向目录的 HTML，并配置代理
+
+``` shell
+docker run --name ddd233 -v {目标 html 地址}:/usr/share/nginx/html:ro -v {目标 conf 地址}:/etc/nginx/nginx.conf:ro -d -p 5555:5555 nginx
+
+# demo
+docker run --name ddd233 -v /Users/ddd/D/feiyu/eai3/integration-ui3/dist:/usr/share/nginx/html:ro -v /Users/ddd/D/core/nginx-utils/eai-proxy.conf:/etc/nginx/nginx.conf:ro -d -p 5555:5555 nginx
+```
+
+
+## 类型
+
 #### 镜像
 
 * 拉取镜像：`docker pull name[:TAG]`
 * 查看当前的镜像：`docker image ls`
-* 查看镜像历史修改记录：`docker history IMAGE`
+* 查看镜像历史修改记录：`docke**r** history IMAGE`
 * 运行镜像，并命名：`docker run --name webserver -d -p 80:80 nginx`
 * `docker exec -it webserver bash`
 * 生成镜像：`docker build -t IMAGE {执行的上下文路径}`
@@ -129,4 +151,5 @@ categories: ["记录"]
 docker run --name {} -v {}:/usr/share/nginx/html:ro -p 8088:80 -d nginx
 
 docker run --name test-js -v /Users/ddd/Downloads:/usr/share/nginx/html:ro -p 8088:80 -d nginx
+
 

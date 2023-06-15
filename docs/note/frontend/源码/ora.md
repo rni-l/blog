@@ -163,7 +163,7 @@ render('loading:')
 3. loading 效果和颜色效果
 	1. loading 效果其实就是几个不同的 icon/字符 循环显示
 	2. 颜色效果:
-	3. ![[test#chalk]]
+	3. ![[chalk#原理]]
 
 ## 总结
 

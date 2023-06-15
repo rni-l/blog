@@ -2,7 +2,7 @@
   "name": "blog",
   "version": "1.0.0",
   "main": "index.js",
-  "author": "yiiouo <15625979610@163.com>",
+  "author": "rnil <15625979610@163.com>",
   "license": "MIT",
   "devDependencies": {
     "@vuepress/plugin-docsearch": "^2.0.0-beta.61",

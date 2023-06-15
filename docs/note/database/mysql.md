@@ -628,3 +628,24 @@ alter user root@localhost identified by 'Admin@123456';
 update user set host = '%' where user ='root';
 FLUSH PRIVILEGES;
 
+
+## 重置密码（5.7）
+``` shell
+# 关闭服务
+# 安全模式启动
+which mysql # -> output path
+./mysqld_safe --skip-grant-tables &
+
+# 登录
+mysql -u root
+
+UPDATE mysql.user 
+  SET authentication_string = PASSWORD('123123') 
+  WHERE User = 'root';
+flush privileges;  # 刷新权限
+quit;
+
+# 重新开启服务
+# 登录...
+
+```

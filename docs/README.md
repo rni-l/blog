@@ -1,6 +1,5 @@
 ---
 sidebar: false
-layout: CommonLayout
----
-
-<home-content />
+lastUpdated: false
+--- 
+  <HomeContent />

@@ -7,6 +7,7 @@
 -->
 <template>
   <Layout class="home-layout">
+    <slot />
   </Layout>
 </template>
 

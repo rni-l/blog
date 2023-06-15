@@ -2,7 +2,7 @@
   <div class="m-home">
     <div class="profile">
       <img src="/avatar.png" alt="" class="avatar">
-      <div class="profile-item name">Rnil</div>
+      <div class="profile-item name">Rni-L</div>
       <div class="profile-item">Web 前端开发</div>
     </div>
 
@@ -15,6 +15,7 @@
         <div class="category-item-name">{{ v.name }}</div>
       </div>
     </div>
+    <footer><a href="https://beian.miit.gov.cn/" target="_blank">粤ICP备17068856号-1</a></footer>
   </div>
 </template>
 
