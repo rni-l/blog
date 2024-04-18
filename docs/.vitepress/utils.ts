@@ -1,7 +1,7 @@
 /*
  * @Author: Lu
- * @Date: 2022-01-09 10:49:27
- * @LastEditTime: 2022-01-09 11:08:06
+ * @Date: 2024-04-17 23:30:45
+ * @LastEditTime: 2024-04-18 10:23:08
  * @LastEditors: Lu
  * @Description: 
  */
@@ -23,6 +23,7 @@ export const generatePathTree = (targetRootPath: string, relativePath: string = 
   const res = readdirSync(targetRootPath, { encoding: 'utf-8' })
   return res.reduce((acc: GeneratePathTree[], v) => {
     const curPath = `${targetRootPath}/${v}`
+    // const curRelativePath = `${relativePath}/${v.replace('md', 'html')}`
     const curRelativePath = `${relativePath}/${v}`
     // 判断是否文件夹
     const statVal = statSync(curPath)
@@ -51,8 +52,8 @@ export const generatePathTree = (targetRootPath: string, relativePath: string = 
 
 export const generateVuepressChildren = (tree: GeneratePathTree[]) => {
   return tree.map(v => ({
-    link: v.relativePath,
+    link: v.isDirectory ? undefined : v.relativePath,
     text: v.name,
-    children: v.isDirectory ? generateVuepressChildren(v.children ?? []) : undefined
+    items: v.isDirectory ? generateVuepressChildren(v.children ?? []) : undefined
   }))
 }

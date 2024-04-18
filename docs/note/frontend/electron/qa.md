@@ -188,7 +188,7 @@ electron-builder@23.0.0 版本解决了此问题，更新即可
 
 打包发布到 github 的时候是没有 .zip 文件的，这时候应用触发更新时会报错：
 
-```shel
+```shell
 Error: ZIP file not provided:
 ```
 
