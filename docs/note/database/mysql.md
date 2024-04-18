@@ -535,7 +535,7 @@ mysql -u root -p {dbname} < /Users/apple/D/document/test2.sql
 3. Nested Sets：每一条记录存 nleft 和 nright
 4. Closure Table：维护一个表，所有的tree path作为记录进行保存。
 
-![](../../.vuepress/public/mysql/tree-perf.jpg)
+![](../../public/mysql/tree-perf.jpg)
 
 参考资料：https://www.zhihu.com/question/20417447
 

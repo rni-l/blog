@@ -148,7 +148,7 @@ lerna add xxx --scope=a1 --scope=a2
 
 1. [medium- lenra JS package 管理工具](https://medium.com/lion-f2e/lerna-js-package-管理工具-e9ed360d1143)
 3. [juejin](https://juejin.im/post/5a989fb451882555731b88c2#heading-1)
-4. [中文文档]([https://github.com/chinanf-boy/lerna-zh#%E5%85%A5%E9%97%A8](https://github.com/chinanf-boy/lerna-zh#入门))
+4. [中文文档](https://github.com/chinanf-boy/lerna-zh#入门)
 5. [cz-lerna-changelog](https://github.com/atlassian/cz-lerna-changelog)
-5. [lerna-hoist](https://github.com/lerna/lerna/blob/main/doc/hoist.md)
+6. [lerna-hoist](https://github.com/lerna/lerna/blob/main/doc/hoist.md)
 

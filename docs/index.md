@@ -3,23 +3,12 @@
 layout: home
 
 hero:
-  name: "Blog"
-  text: "A VitePress Site"
-  tagline: My great project tagline
-  actions:
-    - theme: brand
-      text: Markdown Examples
-      link: /markdown-examples
-    - theme: alt
-      text: API Examples
-      link: /api-examples
-
-features:
-  - title: Feature A
-    details: Lorem ipsum dolor sit amet, consectetur adipiscing elit
-  - title: Feature B
-    details: Lorem ipsum dolor sit amet, consectetur adipiscing elit
-  - title: Feature C
-    details: Lorem ipsum dolor sit amet, consectetur adipiscing elit
+  name: "Rni-L Blog"
+  tagline: 记录平时用到的技术
 ---
 
+
+## 技术
+
+* [H5视频兼容性处理总结](/article/H5%20视频兼容性处理总结.html)
+* [快速开发一个chrome插件](/article/快速开发一个chrome插件.html)

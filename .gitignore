@@ -6,3 +6,5 @@ docs/.vuepress/dist
 local.config.ts
 .DS_Store
 hexo
+dist
+cache

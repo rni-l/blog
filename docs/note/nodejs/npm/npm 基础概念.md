@@ -339,7 +339,7 @@ Pnpm 会将安装的新依赖统一存储在一个文件夹内，旧依赖就会
 
 
 
-![npm1](../../../../../hugo/static/img/npm1.png)
+<!-- ![npm1](../../../../../hugo/static/img/npm1.png) -->
 
 
 

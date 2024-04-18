@@ -72,7 +72,7 @@ const val = ref('')
 
 我们使用上面的配置，展示下：
 
-![i0](../.vuepress/public/article/vue-keep-alive/i0.gif)
+![i0](../public/article/vue-keep-alive/i0.gif)
 
 p1-a 和 p1-b 是同一个组件但不同路由，两个组件的不断切换，缓存是正常的；当移除了 p1-b，再重新打开 p1-b 的时候，我想要的效果该页面是重置的，但显示出来的效果还是被缓存了。
 
@@ -154,13 +154,13 @@ const { key } = useControlComponent(comKey)
 
 之所以要引入一个包裹组件，是因为我要原组件的所有内容，如果不这样处理，整个组件的数据是不会被重置的。这样当我要移除 /b 页的缓存时，使用 EventBus 发送“删除”事件，hook 就会根据 `comKey` 来判断是否要刷新 key
 
-![i1](../.vuepress/public/article/vue-keep-alive/i1.jpg)
+![i1](../public/article/vue-keep-alive/i1.jpg)
 
 整个变化如上图，添加多一个包裹组件和 hook，用于更新组件
 
 Demo 执行效果：
 
-![i2](../.vuepress/public/article/vue-keep-alive/i2.gif)
+![i2](../public/article/vue-keep-alive/i2.gif)
 
 p1-a 和 p1-b 是同一个组件但不同路由，p2-a 和 p2-b 也是一样。每次切换 tab 时，路由是有变化的，同组件的页面的缓存也是正常的，并且可以在左侧的 vue-devtools 中看到组件状态，虽然一直被 `keep-alive` 缓存着，但重新打开“移除”的页面，页面是被重置了
 

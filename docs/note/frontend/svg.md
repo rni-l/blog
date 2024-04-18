@@ -10,7 +10,7 @@ categories: ["记录"]
 ### 参考文章
 
 1. [张鑫旭 svg smil 介绍](<https://www.zhangxinxu.com/wordpress/2014/08/so-powerful-svg-smil-animation/>)
-2. [mdn](<developer.mozilla.org/zh-CN/docs/Web/SVG>)
+2. [mdn](<https://developer.mozilla.org/zh-CN/docs/Web/SVG>)
 
 ### 使用
 

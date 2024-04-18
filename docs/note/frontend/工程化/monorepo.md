@@ -96,7 +96,7 @@ categories: ["monorepo"]
 
 6. [lerna 实践](/note/frontend/工程化/lerna.html)
 7. [npm-workspace & yarn-workspace](/note/frontend/工程化/npm-workspace&yarn-workspace.html)
-8. [turborepo 实践](/ddd.html)
+8. turborepo 实践
 
 
 
