@@ -1,4 +1,4 @@
-# Centos8 环境安装 NodeJS、 Docker 和 Java
+了；‘h# Centos8 环境安装 NodeJS、 Docker 和 Java
 
 > 在搭建 jeecg 环境时，需要用到 NodeJS、 Docker 和 Java，所以这里记录一下安装命令和过程
 

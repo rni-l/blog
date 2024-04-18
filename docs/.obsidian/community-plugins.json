@@ -6,5 +6,7 @@
   "influx",
   "obsidian-tabs",
   "obsidian-outliner",
-  "notion-like-tables"
+  "notion-like-tables",
+  "file-explorer-note-count",
+  "obsidian-markmind"
 ]

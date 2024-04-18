@@ -1,5 +1,4 @@
 ---
-
 title: babel
 date: 2018-12-11
 tags: ["js", "babel"]

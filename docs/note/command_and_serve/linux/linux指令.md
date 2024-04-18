@@ -38,6 +38,7 @@ categories: ["记录"]
 * chmod -R 777 xxx : 给权限
 
 * netstat -tunpl : 查看端口
+* telnet ip port： 查看服务器端口是否开启
 
 * tree:  tree -I '*git|*svn|*node_modules*|dist' -C 查看当前文件夹的文件列表
 
@@ -67,6 +68,15 @@ categories: ["记录"]
     tac是倒序查看，是cat单词反写；例子如下：
 
      cat -n test.log |grep "debug"   查询关键字的日志
+
+### 文本查询
+```shell
+# 在当前目录及其子目录下查找包含 "ddd" 的文件，并只显示匹配文件的文件名
+grep -rl "ddd" .
+
+# 只在当前目录下查找包含 "ddd" 的文件，并只显示匹配文件的文件名
+grep -l "ddd" *
+```
 
 查看进程
 
@@ -172,6 +182,19 @@ firewall-cmd --permanent --add-port=4803/tcp
 systemctl restart firewalld.service
 ```
 
+
+### 打包/解压
+
+``` shell
+# 打包/解压 .tar.gz
+tar --exclude=目录名/* 或者 文件名 -zcvf 备份文件名.tgz 目录名
+
+tar -zxvf abc.tgz
+
+# 打包/解压 .gz
+gzip -d ddd.gz
+gunzip ddd.gz
+```
 
 
 ## 环境变量

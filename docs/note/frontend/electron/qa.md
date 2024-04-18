@@ -241,6 +241,15 @@ autoUpdater.requestHeaders = {'Cache-Control' : 'no-store, no-cache, must-revali
 2. [github - Auto update doesn't work: app-update.yml is missing](https://github.com/electron-userland/electron-builder/issues/4233)
 
 
+### 苹果授权验证异常：# You do not have required contracts to perform an operation.
+
+应该是苹果开发者协议需要重新确认，去 [https://developer.apple.com/account](https://developer.apple.com/account) 重新点击同意就行了
+[参考链接](https://forums.developer.apple.com/forums/thread/710906)
+
+
+#### Notarization of MacOS applications using altool has been decommissioned
+
+
 ## 性能问题
 
 ### 页面节点过多，如何优化？
